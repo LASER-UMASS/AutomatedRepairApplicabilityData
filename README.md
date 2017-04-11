@@ -41,24 +41,25 @@ data. Thus, we have:
      file provided by Defects4J authors and outputs patch_complexity.csv that lists ProjectId(PID), DefectIf(BID), FILECOUNT, 
      LINECOUNT for all the defects. The script can be run by using command: python get-patch-details.py.
    - **get-testcase-details.py** is used to annotate triggering test count and relevant test count. This requires to have 
-      Defects4J installed and D4J_HOME environment variable set to path to defects4j installation. The output of this script 
-      is Defects4JTests.csv file that lists Project, BugID, #Relevant tests, #Triggering tests and #Classes dependent on a 
-      given defect for all defects. This script can be run by using command: python get-testcase-details.py.    
-   - **get-coverage-details.py** is used to annotate statement coverage. This script requires Defects4J installed on system 
-      and PATH variable should includes "D4J_HOME/framework/bin". The output of this script is Defects4JCoverage.csv file 
-      that lists Project, BugID, Lines total, Lines covered, Conditions total, Conditions covered, Line Coverage, and 
+      Defects4J installed and setting the defects4jpath variable (inside script) Defects4j installation path. The output of 
+      this script is Defects4JTests.csv file that lists Project, BugID, #Relevant tests, #Triggering tests and #Classes 
+      dependent on a given defect for all defects. This script can be run by using command: python get-testcase-details.py.    
+   - **get-coverage-details.py** is used to annotate statement coverage. This script requires Defects4J installed and setting the 
+      defects4jpath variable (inside script) Defects4j installation path. The output of this script is  Defects4JCoverage.csv 
+      file that lists Project, BugID, Lines total, Lines covered, Conditions total, Conditions covered, Line Coverage, and 
       Condition coverage for all defects. This script can be run by using command: python get-coverage-details.py.
 
 2. manybugs-specific - This directory contains scripts that are used to annotate ManyBugs defects. 
 
    - **get-minimized-patch-complexity.py** is used to annotate file count and line count by removing the blank and commented 
      lines from the developer-written patches of ManyBugs defects. This script takes as input ManyBugs scenarios available 
-     at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/ and it generates as output ManyBugsPatchComplexity.csv file 
-     that lists SCENARIO, FILECOUNT, INSERTED, DELETED, MODIFIED, LINECOUNT for all the defects. The script can be run by 
-     using command: python get-minimized-patch-complexity.py 
+     at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/ (set the variable repoPath inside script to point to downloaded 
+     scenarios) and it generates as output ManyBugsPatchComplexity.csv file that lists SCENARIO, FILECOUNT, INSERTED, DELETED, 
+     MODIFIED, LINECOUNT for all the defects. The script can be run by using command: python get-minimized-patch-complexity.py 
    - **get-testcase-details.py** is used to annotate triggering test count and relevant test count. This script takes as 
-     input ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/ and it generates as output 
-     ManyBugsTests.csv file that lists SCENARIO, POSITIVE_TESTS_COUNT, NEGATIVE_TESTS_COUNT, RELEVANT_TESTS_COUNT, and
-     TRIGGERING_TESTS_COUNT for all the ManyBugs defects. The script can be run by using command: python get-testcase-details.py 
+     input ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/ (set the variable repoPath 
+     inside script to point to downloaded scenarios) and it generates as output ManyBugsTests.csv file that lists SCENARIO, 
+     POSITIVE_TESTS_COUNT, NEGATIVE_TESTS_COUNT, RELEVANT_TESTS_COUNT, and TRIGGERING_TESTS_COUNT for all the ManyBugs defects. 
+     The script can be run by using command: python get-testcase-details.py 
    
    
