@@ -8,9 +8,9 @@ ManyBugs and Defects4J benchmarks annotated with:
 1. Defect characteristics obtained from various bug tracking systems and information available in benchmarks.
 These defect characteristics can be utilized to evaluate the applicability of automated program repair techniques.
 
-2. Reparability and patch quality analysis results of 9 automated program repair techniques evaluated on these benchmarks.
+2. Repairability and patch quality analysis results of 9 automated program repair techniques evaluated on these benchmarks.
 
-The annonated defects are available in csv files - ManyBugs.csv and Defects4j.csv which correspond to annotations of
+The annotated defects are available in csv files - ManyBugs.csv and Defects4j.csv which correspond to annotations of
 ManyBugs and Defects4J respectively.
 
 ManyBugs.csv contains:
@@ -18,7 +18,7 @@ ManyBugs.csv contains:
 1. 185 defects of ManyBugs annotated with abstract parameters utilizing data from different project-specific
 bug tracking systems and ManyBugs benchmark available at http://repairbenchmarks.cs.umass.edu/.
 
-2. Reparability results and quality analysis results of 6 APR techniques - GenProg, TrpAutoRepair, AE,
+2. Repairability results and quality analysis results of 6 APR techniques - GenProg, TrpAutoRepair, AE,
 SPR, Prophet, and Kali. (Note: SPR, Prophet and Kali were evaluated on 105-subset of ManyBugs)
 
 Defects4j.csv contains:
@@ -26,12 +26,12 @@ Defects4j.csv contains:
 1. 357 defects of Defects4J annotated with abstract parameters utilizing data from different project-specific
 bug tracking systems and Defects4J benchmark available at https://github.com/rjust/defects4j.
 
-2. Reparability results and quality analysis results of 3 APR techniques - GenProg, Kali, and Nopol for 224 defect
+2. Repairability results and quality analysis results of 3 APR techniques - GenProg, Kali, and Nopol for 224 defect
 subset on which these techniques were evaluated.
 
 ### Scripts
 
-Following python scripts are used to annotate parameters related to defect characterictics - *Complexity* and *Test effectivess*
+Following python scripts are used to annotate parameters related to defect characteristics - *Complexity* and *Test effectivess*
 for which the data is available in benchmarks. These scripts are organized in terms of benchmarks from which they fetch
 data. Thus, we have:
 
