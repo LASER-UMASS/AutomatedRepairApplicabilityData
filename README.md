@@ -62,4 +62,111 @@ data. Thus, we have:
      POSITIVE_TESTS_COUNT, NEGATIVE_TESTS_COUNT, RELEVANT_TESTS_COUNT, and TRIGGERING_TESTS_COUNT for all the ManyBugs defects.
      The script can be run by using command: python get-testcase-details.py
 
+### Abstract parameters
 
+Following is the list describing abstract parameters which the defects are annotated with. 
+
+1. FileCount
+   - Data-type:integer
+   - Possible values: >=1 
+   - Description: the number of files containing non-comment non-blank-line edits in the developer-written fix.
+2. LineCount
+   - Data-type:integer
+   - Possible values: >=1 
+   - Description: the total number of non-comment non-blank lines of code in the developer-written fix.
+3. RelevantTestCount	
+   - Data-type:integer
+   - Possible values: >=1 
+   - Description: number of test cases that execute at least one statement in at least one file edited by the developer-written  
+     patch.
+4. TriggeringTestCount	
+   - Data-type:integer
+   - Possible values: >=1 
+   - Description: number of defect triggering test cases
+5. StatementCoverage	
+   - Data-type:double
+   - Possible values: >=0 and <=100 
+   - Description: the percentage of the lines in the files edited by the developer-written patches that are executed by the test 
+     suite
+6. TimeToFix	
+   - Data-type:double
+   - Possible values: >0 
+   - Description: the amount of time (days) taken by developer to fix a defect. This is computed as the time difference between   
+     when the issue was reported and when the issue was resolved. Depending on the bug tracking system, different concrete 
+     parameters are used to obtain these two timestamps.
+7. Versions	
+   - Data-type:integer
+   - Possible values: >=1 
+   - Description: effect of defect on different versions of a project or other project modules and components.
+8. Priority	
+   - Data-type:integer
+   - Possible values: 1,2,3,4,5 
+   - Description: importance of fixing a defect in terms of defect priority. This is obtained using priority assigned to the 
+     defect. Different bug tracking systems use different values to denote low, normal, high, critical, blocker defects. We use a 
+     scale of 1 to 5 corresponding to these priority values (1 is the lowest priority and 5 is the highest) and map the values 
+     used by bug tracking systems to our scale.
+9. Dependents	
+   - Data-type:integer
+   - Possible values: >=1 
+   - Description: number of defects (also with URLs to bug tracking systems) on which the fixing of a given defect depends.
+10. PatchCharacteristics
+    - Data-type:integer
+    - Possible values: 0,1 
+    - Description: characteristics of the developer-written patch in terms of the type of code modifications done to fix the 
+     defect. The defects are annotated corresponding to following nine patch characteristics borrowed from the information about 
+     bug type available within the ManyBugs meta-data. For each characteristic a defect is annotated with value 0 or 1 depending 
+     upon the edits involved in developer-written fix.  
+     
+       - Human patch changes data structures or types?	
+       - Human patch changes method signature?	
+       - Human patch changes arguments to a function?	
+       - Human patch added 1 or more function calls?	
+       - Human patch changes conditional?	
+       - Human patch adds new variables?	
+       - Human patch adds 1 or more if-statements?	
+       - Human patch adds 1 or more loops?	
+       - Human patch adds a whole new function?
+
+#### Additional annotations ####
+
+1. DefectId
+    - Data-type:string
+    - Description: This contains the unique defect IDs. For ManyBugs the DefectId is of the format project-buggyHash-fixedhash.  
+      For Defects4J, we have separate columns for Project and DefectId provided by Defects4J authors. 
+2. IssueReportLink
+    - Data-type:string
+    - Possible values: url to issue tracker 
+    - Description: the URL to the bug tracking system that describes the bug or feature-request depending upon the defect type. 
+      Some defects had multiple URL mappings so we took the one which was reported first. Also, some of the defects map to same 
+      URLs indicating that these correspond to individual commits made while resolving the issue.   
+3. LinkedToBugTracker
+    - Data-type:integer
+    - Possible values: 0,1 
+    - Description: this contains values 1 and 0 corresponding to whether a defect is linked to any bug tracking system (through
+      URL) or not respectively.  
+4. DefectType (bug vs feature-request)	
+    - Data-type:string
+    - Possible values: bug, feature-request 
+    - Description: if the defect is a bug report or a feature request. This is determined based on our defined methodology of 
+      classifying defects into bugs and feature-requests. 
+5. DefectType (defect vs regression)	
+    - Data-type:string
+    - Possible values: defect, regression
+    - Description: if the chronological order of commits corresponding to buggy and fixed versions of the defect is reverse, it 
+      is annotated as regression otherwise as defect.
+6. \<APR technique\>
+   - Data-type:integer
+   - Possible values: 0,1 
+   - Description: this contains 1 or 0 corresponding to whether \<APR technique\> was able to fix the defect (generate a  
+     plausible patch) or not respectively. The repairability results are borrowed from previous evaluations. 
+7. \<APR technique\> (patch-quality)
+   - Data-type:string
+   - Possible values: plausible, correct
+   - Description: this contains the information about the quality of patches generated by \<APR technique\>. These results are 
+     borrowed from evaluation of patches done by other researchers. A patch is plausible if it passes all the negative and 
+     positive tests. The criteria considered for correctness depend upon the specific methodology followed by researchers. 
+8. (In ManyBugs.csv) SPRCorrect, ProphetCorrect
+   - Data-type:integer
+   - Possible values: 0,1 
+   - Description: this contains 1 or 0 corresponding to whether SPR/Prophet was able to fix the defect correctly (generate a  
+     correct patch) or not respectively. These repairability results are borrowed from previous evaluation. 
