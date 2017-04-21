@@ -168,5 +168,5 @@ Following is the list describing abstract parameters which the defects are annot
 8. (In ManyBugs.csv) SPRCorrect, ProphetCorrect
    - Data-type:integer
    - Possible values: 0,1 
-   - Description: this contains 1 or 0 corresponding to whether SPR/Prophet was able to fix the defect correctly (generate a  
-     correct patch) or not respectively. These repairability results are borrowed from previous evaluation. 
+   - Description: this contains 1 or 0 corresponding to whether SPR/Prophet was able to fix the defect correctly i.e. if the 
+     generated patch is correct patch or not respectively. These repairability results are borrowed from previous evaluation. 
