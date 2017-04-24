@@ -11,11 +11,11 @@ to produce patches for defects considered hard or important by developers.
 
 ManyBugs.csv and Defects4J.csv files, respectively, contain annotations for
 the 185 defects from the [ManyBugs](http://repairbenchmarks.cs.umass.edu/)
-benchmark, and 357 defects from the
+benchmark, and 224 defects from the
 [Defects4J](https://github.com/rjust/defects4j) benchmark. These annotations
 include:
 
-1. Ten abstract parameters describing defect properties derived from bug tracking systems and the benchmarks.
+1. Eleven abstract parameters describing defect properties derived from bug tracking systems and the benchmarks.
 
 2. For which defects nine automated repair techniques produce patches, and
 the quality of those patches. The ManyBugs benchmark contains these data for
@@ -69,7 +69,9 @@ The defects are annotated with the following abstract parameters, when the relev
    - Data-type:integer
    - Possible values: >=1, NA (information not available)
    - Description: number of defects (with URLs to a bug tracking system) on which the defect's issue depends.
-10. PatchCharacteristics
+10.Reproducibility
+   - Description: how easy it is to reproduce the defect. We did not have this information available in bug-tracking systems associated with ManyBugs and Defects4J defects.  
+11. PatchCharacteristics
     - Data-type:integer
     - Possible values: 0,1 
     - Description: characteristics of the developer-written patch in terms of
