@@ -25,7 +25,7 @@ Defects4J benchmark contains these data for three Java techniques: GenProg,
 Kali, and Nopol. (These techniques were evaluated on a 224-defect subset of
 Defects4J.)
 
-### The ten abstract parameters
+### The eleven abstract parameters
 
 The defects are annotated with the following abstract parameters, when the relevant data is available: 
 
@@ -69,8 +69,10 @@ The defects are annotated with the following abstract parameters, when the relev
    - Data-type:integer
    - Possible values: >=1, NA (information not available)
    - Description: number of defects (with URLs to a bug tracking system) on which the defect's issue depends.
-10.Reproducibility
-   - Description: how easy it is to reproduce the defect. We did not have this information available in bug-tracking systems associated with ManyBugs and Defects4J defects.  
+9. Reproducibility	
+   - Data-type:double
+   - Possible values: >=0 and <=1 NA (information not available)
+   - Description: how easy it is to reproduce the defect by developer (0 indicates defect is non-determinitsic and 1 indicates defect is reproducible).
 11. PatchCharacteristics
     - Data-type:integer
     - Possible values: 0,1 
