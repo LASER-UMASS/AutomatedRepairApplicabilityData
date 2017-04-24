@@ -15,7 +15,7 @@ benchmark, and 357 defects from the
 [Defects4J](https://github.com/rjust/defects4j) benchmark. These annotations
 include:
 
-1. Eleven abstract parameters describing defect properties derived from bug tracking systems and the benchmarks.
+1. Ten abstract parameters describing defect properties derived from bug tracking systems and the benchmarks.
 
 2. For which defects nine automated repair techniques produce patches, and
 the quality of those patches. The ManyBugs benchmark contains these data for
@@ -25,7 +25,7 @@ Defects4J benchmark contains these data for three Java techniques: GenProg,
 Kali, and Nopol. (These techniques were evaluated on a 224-defect subset of
 Defects4J.)
 
-### The eleven abstract parameters
+### The ten abstract parameters
 
 The defects are annotated with the following abstract parameters, when the relevant data is available: 
 
