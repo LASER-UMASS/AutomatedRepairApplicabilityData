@@ -1,121 +1,80 @@
-# AutomatedRepairApplicabilityData
-## Data and scripts extending the ManyBugs and Defects4J benchmarks for evaluating applicability of automated program repair techniques.
+# Automated repair applicability data 
 
-### Data
+This project contains data and scripts that extend the
+[ManyBugs](http://repairbenchmarks.cs.umass.edu/) and
+[Defects4J](https://github.com/rjust/defects4j) benchmarks to enable the
+evaluation of automated program repair's applicability to defects, For
+example, these data enable evaluating if automated repair techniques are able
+to produce patches for defects considered hard or important by developers. 
 
-ManyBugs and Defects4J benchmarks annotated with:
+## Data 
 
-1. Defect characteristics obtained from various bug tracking systems and information available in benchmarks.
-These defect characteristics can be utilized to evaluate the applicability of automated program repair techniques.
+ManyBugs.csv and Defects4J.csv files, respectively, contain annotations for
+the 185 defects from the [ManyBugs](http://repairbenchmarks.cs.umass.edu/)
+benchmark, and 357 defects from the
+[Defects4J](https://github.com/rjust/defects4j) benchmark. These annotations
+include:
 
-2. Repairability and patch quality analysis results of 9 automated program repair techniques evaluated on these benchmarks.
+1. Eleven abstract parameters describing defect properties derived from bug tracking systems and the benchmarks.
 
-The annotated defects are available in csv files - ManyBugs.csv and Defects4j.csv which correspond to annotations of
-ManyBugs and Defects4J respectively.
+2. For which defects nine automated repair techniques produce patches, and
+the quality of those patches. The ManyBugs benchmark contains these data for
+six C techniques: GenProg, TrpAutoRepair, AE, SPR, Prophet, and Kali. (SPR,
+Prophet, and Kali are evaluated on an 105-defect subset of ManyBugs.) The
+Defects4J benchmark contains these data for three Java techniques: GenProg,
+Kali, and Nopol. (These techniques were evaluated on a 224-defect subset of
+Defects4J.)
 
-ManyBugs.csv contains:
+### The eleven abstract parameters
 
-1. 185 defects of ManyBugs annotated with abstract parameters utilizing data from different project-specific
-bug tracking systems and ManyBugs benchmark available at http://repairbenchmarks.cs.umass.edu/.
-
-2. Repairability results and quality analysis results of 6 APR techniques - GenProg, TrpAutoRepair, AE,
-SPR, Prophet, and Kali. (Note: SPR, Prophet and Kali were evaluated on 105-subset of ManyBugs)
-
-Defects4j.csv contains:
-
-1. 357 defects of Defects4J annotated with abstract parameters utilizing data from different project-specific
-bug tracking systems and Defects4J benchmark available at https://github.com/rjust/defects4j.
-
-2. Repairability results and quality analysis results of 3 APR techniques - GenProg, Kali, and Nopol for 224 defect
-subset on which these techniques were evaluated.
-
-### Scripts
-
-Following python scripts are used to annotate parameters related to defect characteristics - *Complexity* and *Test effectivess*
-for which the data is available in benchmarks. These scripts are organized in terms of benchmarks from which they fetch
-data. Thus, we have:
-
-1. defects4j-specific: This directory contains scripts that are used to annotate Defects4J defects.
-
-   - **get-patch-details.py** is used to annotate file count and line count. This script takes as input all_diffs.csv
-     file provided by Defects4J authors and outputs patch_complexity.csv that lists ProjectId(PID), DefectIf(BID), FILECOUNT,
-     LINECOUNT for all the defects. The script can be run by using command: python get-patch-details.py.
-   - **get-testcase-details.py** is used to annotate triggering test count and relevant test count. This requires to have
-      Defects4J installed and setting the defects4jpath variable (inside script) Defects4j installation path. The output of
-      this script is Defects4JTests.csv file that lists Project, BugID, #Relevant tests, #Triggering tests and #Classes
-      dependent on a given defect for all defects. This script can be run by using command: python get-testcase-details.py.
-   - **get-coverage-details.py** is used to annotate statement coverage. This script requires Defects4J installed and setting the
-      defects4jpath variable (inside script) Defects4j installation path. The output of this script is  Defects4JCoverage.csv
-      file that lists Project, BugID, Lines total, Lines covered, Conditions total, Conditions covered, Line Coverage, and
-      Condition coverage for all defects. This script can be run by using command: python get-coverage-details.py.
-
-2. manybugs-specific - This directory contains scripts that are used to annotate ManyBugs defects.
-
-   - **get-minimized-patch-complexity.py** is used to annotate file count and line count by removing the blank and commented
-     lines from the developer-written patches of ManyBugs defects. This script takes as input ManyBugs scenarios available
-     at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/ (set the variable repoPath inside script to point to downloaded
-     scenarios) and it generates as output ManyBugsPatchComplexity.csv file that lists SCENARIO, FILECOUNT, INSERTED, DELETED,
-     MODIFIED, LINECOUNT for all the defects. The script can be run by using command: python get-minimized-patch-complexity.py
-   - **get-testcase-details.py** is used to annotate triggering test count and relevant test count. This script takes as
-     input ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/ (set the variable repoPath
-     inside script to point to downloaded scenarios) and it generates as output ManyBugsTests.csv file that lists SCENARIO,
-     POSITIVE_TESTS_COUNT, NEGATIVE_TESTS_COUNT, RELEVANT_TESTS_COUNT, and TRIGGERING_TESTS_COUNT for all the ManyBugs defects.
-     The script can be run by using command: python get-testcase-details.py
-
-### Abstract parameters
-
-Following is the list describing abstract parameters which the defects are annotated with. 
+The defects are annotated with the following abstract parameters, when the relevant data is available: 
 
 1. FileCount
    - Data-type:integer
    - Possible values: >=1 
-   - Description: the number of files containing non-comment non-blank-line edits in the developer-written fix.
+   - Description: the number of files containing non-comment, non-blank lines edited by the developer-written patch.
 2. LineCount
    - Data-type:integer
    - Possible values: >=1 
-   - Description: the total number of non-comment non-blank lines of code in the developer-written fix.
+   - Description: the total number of non-comment, non-blank lines edited by the developer-written patch.
 3. RelevantTestCount	
    - Data-type:integer
    - Possible values: >=1 
-   - Description: number of test cases that execute at least one statement in at least one file edited by the developer-written  
-     patch.
+   - Description: number of test cases that execute at least one statement in at least one file edited by the developer-written patch.
 4. TriggeringTestCount	
    - Data-type:integer
    - Possible values: >=1 
-   - Description: number of defect triggering test cases
+   - Description: number of defect-triggering test cases
 5. StatementCoverage	
    - Data-type:double
    - Possible values: >=0 and <=100, NA (information not available)
-   - Description: the percentage of the lines in the files edited by the developer-written patches that are executed by the test 
-     suite
+   - Description: the percent of the lines in the files edited by the developer-written patch that are executed by the test suite
 6. TimeToFix	
    - Data-type:double
    - Possible values: >0, NA (information not available)
-   - Description: the amount of time (days) taken by developer to fix a defect. This is computed as the time difference between   
-     when the issue was reported and when the issue was resolved. Depending on the bug tracking system, different concrete 
-     parameters are used to obtain these two timestamps.
+   - Description: the difference, in days, between when the defect's issue
+     was reported and when that issue was resolved.
 7. Versions	
    - Data-type:integer
    - Possible values: >=1, NA (information not available)
-   - Description: effect of defect on different versions of a project or other project modules and components.
+   - Description: number of project versions or project modules and components affected by the defect.
 8. Priority	
    - Data-type:integer
-   - Possible values: 1,2,3,4,5, NA (information not available)
-   - Description: importance of fixing a defect in terms of defect priority. This is obtained using priority assigned to the 
-     defect. Different bug tracking systems use different values to denote low, normal, high, critical, blocker defects. We use a 
-     scale of 1 to 5 corresponding to these priority values (1 is the lowest priority and 5 is the highest) and map the values 
-     used by bug tracking systems to our scale.
+   - Possible values: 1, 2, 3, 4, 5, NA (information not available)
+   - Description: the priority assigned to the defect's issue in the bug
+     tracking system. Different bug tracking systems use different values to
+     denote low, normal, high, critical, and blocker defects. We map these
+     values to a scale of 1 (lowest) to 5 (higher).
 9. Dependents	
    - Data-type:integer
    - Possible values: >=1, NA (information not available)
-   - Description: number of defects (also with URLs to bug tracking systems) on which the fixing of a given defect depends.
+   - Description: number of defects (with URLs to a bug tracking system) on which the defect's issue depends.
 10. PatchCharacteristics
     - Data-type:integer
     - Possible values: 0,1 
-    - Description: characteristics of the developer-written patch in terms of the type of code modifications done to fix the 
-     defect. The defects are annotated corresponding to following nine patch characteristics borrowed from the information about 
-     bug type available within the ManyBugs meta-data. For each characteristic a defect is annotated with value 0 or 1 depending 
-     upon the edits involved in developer-written fix.  
+    - Description: characteristics of the developer-written patch in terms of
+      the type of code modifications. This information comes from the
+      ManyBugs benchmark. The possible code modification types are:
      
        - Human patch changes data structures or types?	
        - Human patch changes method signature?	
@@ -127,11 +86,11 @@ Following is the list describing abstract parameters which the defects are annot
        - Human patch adds 1 or more loops?	
        - Human patch adds a whole new function?
 
-#### Additional annotations ####
+## Additional annotations
 
 1. DefectId
     - Data-type:string
-    - Description: This contains the unique defect IDs. For ManyBugs the DefectId is of the format project-buggyHash-fixedhash. 
+    - Description: The unique defect IDs. For ManyBugs the DefectId is of the format project-buggyHash-fixedhash. 
       For Defects4J, we have separate columns for Project and DefectId provided by Defects4J authors. For ManyBugs the dataset 
       provides DefectIds for both 2015 ManyBugs benchmark containing 185 defects and 2012 ManyBugs benchmark contaning 105 
       defects (strict subset of 185 defects) in seperate columns.
@@ -172,4 +131,50 @@ Following is the list describing abstract parameters which the defects are annot
    - Possible values: 0,1, NT (SPR/Prophet was not tested on that defect)
    - Description: this contains 1 or 0 corresponding to whether SPR/Prophet was able to fix the defect correctly i.e. if the 
      generated patch is correct patch or not respectively. These repairability results are borrowed from previous evaluation. 
+
+
+## Scripts
+
+This section describes the scripts (in the scripts/ directory) used to
+annotate five defect parameters, FileCount, LineCount, TriggeringTestCount,
+RelevantTestCount, and StatementCoverage.
+
+1. defects4j-specific: This directory contains scripts used to annotate Defects4J defects.
+
+   - **get-patch-details.py** annotates FileCount and LineCount. This script
+     takes as input all_diffs.csv file from the Defects4J benchmark and
+     outputs patch_complexity.csv that includes each defect's ProjectId(PID),
+     DefectIf(BID), FILECOUNT, LINECOUNT for all the defects.
+   - **get-testcase-details.py** annotates TriggeringTestCount and
+     RelevantTestCount. This script requires having Defects4J installed and
+     setting the defects4jpath variable (inside script) to the Defects4J
+     installation path. The output of this script is Defects4JTests.csv that
+     includes each defect's Project, BugID, #Relevant tests, #Triggering
+     tests, and #Classes dependent on a given defect. 
+   - **get-coverage-details.py** annotates StatementCoverage. This script
+     requires having Defects4J installed and setting the defects4jpath
+     variable (inside script) to the Defects4j installation path. The output
+     of this script is Defects4JCoverage.csv that includes each defect's
+     Project, BugID, Lines total, Lines covered, Conditions total, Conditions
+     covered, Line Coverage, and Condition coverage for all defects.
+
+2. manybugs-specific - This directory contains scripts used to annotate ManyBugs defects.
+
+   - **get-minimized-patch-complexity.py** annotates FileCount and LineCount,
+     without counting the the blank and comment lines in the
+     developer-written patches. This script takes as input the ManyBugs
+     scenarios available at
+     http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/. The script
+     requires setting the variable repoPath inside the script to point to the
+     scenarios. The script outputs ManyBugsPatchComplexity.csv that includes
+     each defect's SCENARIO, FILECOUNT, INSERTED, DELETED, MODIFIED,
+     LINECOUNT.
+   - **get-testcase-details.py** annotates TriggeringTestCount and
+     RelevantTestCount. This script takes as input the ManyBugs scenarios
+     available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/.
+     The script requires setting the variable repoPath inside the script to
+     point to the scenarios. The script outputs ManyBugsTests.csv that
+     includes each defect's SCENARIO, POSITIVE_TESTS_COUNT,
+     NEGATIVE_TESTS_COUNT, RELEVANT_TESTS_COUNT, and TRIGGERING_TESTS_COUNT.
+
 
