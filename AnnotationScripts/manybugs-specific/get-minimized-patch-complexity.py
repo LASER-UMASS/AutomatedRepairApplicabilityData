@@ -1,11 +1,7 @@
-# script to compute patch complexity from minimized patches of all defects from ManyBugs.
-
-# script requires path to ManyBugs scenarios downloaded from http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
-# output of this script is ManyBugsPatchComplexity.csv file that lists 
-# DefectID.ManyBugs185, FileCount, Insertions, Deletions, Modifications, LineCount 
-# for all the scenarios. 
-
-# run the script by using command: python get-minimized-patch-complexity.py <path to ManyBugs scenarios>
+# PURPOSE: script to compute patch complexity from minimized patches of all defects from ManyBugs.
+# INPUT: script requires path to ManyBugs scenarios downloaded from http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
+# OUTPUT: output of this script is ManyBugsPatchComplexity.csv file that lists DefectID.ManyBugs185, FileCount, Insertions, Deletions, Modifications, LineCount for all the scenarios. 
+# HOW TO RUN: run the script by using command: python get-minimized-patch-complexity.py <path to ManyBugs scenarios>
 
 import os
 import commands

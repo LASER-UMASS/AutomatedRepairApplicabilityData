@@ -1,11 +1,7 @@
-# script to compute test case details for all defects of ManyBugs. 
-
-# script requires ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
-# output of this script is ManyBugsRelevantTests.csv file that lists 
-# DefectID.ManyBugs185, PositiveTestCount, NegativeTestCount, RelevantTestCount, TriggeringTestCount 
-# for all the ManyBugs scenarios. 
-
-# run the script by using command: python get-testcase-details.py <path to ManyBugs scenarios>
+# PURPOSE: script to compute test case details for all defects of ManyBugs. 
+# INPUT: script requires ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
+# OUTPUT: output of this script is ManyBugsRelevantTests.csv file that lists DefectID.ManyBugs185, PositiveTestCount, NegativeTestCount, RelevantTestCount, TriggeringTestCount for all the ManyBugs scenarios. 
+# HOW TO RUN: run the script by using command: python get-testcase-details.py <path to ManyBugs scenarios>
 
 import os
 import re

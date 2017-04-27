@@ -1,13 +1,9 @@
-# script to get coverage of test suite for Defects4J defects
-
-# script requires Defects4J installed on system and enviorinment variable PATH should include "<path-to-defects4j>/framework/bin"
-# script requires <path-to-defects4j> as command line argument
-
-# output of the script is Defects4JCoverage.csv that lists 
-# Project, DefectId, LinesTotal, LinesCovered, ConditionsTotal, ConditionsCovered, StatementCoverage, ConditionCoverage
-# for all the defects of Defects4J
-
-# run the script using command: python get-coverage-details.py <path-to-defects4j>
+# PURPOSE:script to get coverage of test suite for Defects4J defects
+# INPUT: script requires <path-to-defects4j> as command line argument
+# OUTPUT: output of the script is Defects4JCoverage.csv that lists Project, DefectId, LinesTotal, LinesCovered, ConditionsTotal, ConditionsCovered, StatementCoverage, ConditionCoverage 
+#         for all the defects of Defects4J
+# HOW TO RUN: run the script using command: python get-coverage-details.py <path-to-defects4j>
+# REQUIREMENTS AND DEPENDENCIES: script requires Defects4J installed on system and enviorinment variable PATH should include "<path-to-defects4j>/framework/bin"
 
 import os
 import commands
