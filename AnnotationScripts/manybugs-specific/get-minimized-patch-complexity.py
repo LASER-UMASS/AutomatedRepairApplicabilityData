@@ -1,9 +1,11 @@
 # script to compute patch complexity from minimized patches of all defects from ManyBugs.
-# script requires ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
-# run the script by using command: python get-minimized-patch-complexity.py
-# output of this script is ManyBugsPatchComplexity.csv file that lists 
-# SCENARIO, FILECOUNT, INSERTED, DELETED, MODIFIED, LINECOUNT for all the scenarios. 
 
+# script requires path to ManyBugs scenarios downloaded from http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
+# output of this script is ManyBugsPatchComplexity.csv file that lists 
+# DefectID.ManyBugs185, FileCount, Insertions, Deletions, Modifications, LineCount 
+# for all the scenarios. 
+
+# run the script by using command: python get-minimized-patch-complexity.py <path to ManyBugs scenarios>
 
 import os
 import commands
@@ -12,7 +14,11 @@ import tarfile
 import re
 import sys
 
-repoPath = "~/Downloads/ManyBugs_Scenarios/"   # path to ManyBugs scenarios 
+if len(sys.argv) < 2:
+        print "ERROR: Please provide path to ManyBugs scenarios"
+        sys.exit()
+
+repoPath = str(sys.argv[1])                           # path to ManyBugs scenarios 
 scenarios = os.listdir(repoPath)
 inserted = {}
 deleted = {}
@@ -131,7 +137,7 @@ for scenario in scenarios:
 	scenariotar.close()
 
 outputfile = open("ManyBugsPatchComplexity.csv", 'w')
-outputfile.write("SCENARIO, FILECOUNT, INSERTED, DELETED, MODIFIED, LINECOUNT\n")
+outputfile.write("DefectID.ManyBugs185, FileCount, Insertions, Deletions, Modifications, LineCount\n")
 for defect in sorted(inserted):
 	totallines = int(inserted[defect]) + int(deleted[defect]) + int(modified[defect])
         outputline = defect + ", " + str(filecount[defect]) + ", " + str(inserted[defect]) + ", " + str(deleted[defect]) + ", " + str(modified[defect]) + ", " + str(totallines) + "\n"

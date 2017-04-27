@@ -1,6 +1,10 @@
 # script to compute patch complexity from minimized patches of all defects of Defects4J.
-# this script uses data stored in all_diffs.csv and stores it in patch_complexity.csv
-# that lists ProjectId(PID), DefectIf(BID), FILECOUNT, LINECOUNT for all the defects
+
+# this script uses data stored in all_diffs.csv (provided by Defects4J authors) and stores 
+# it in patch_complexity.csv that lists 
+# Project, DefectId, FileCount, LineCount
+# for all the defects
+
 # run the script by using command: python get-patch-details.py
 
 diffFile = open("all_diffs.csv", 'r')
@@ -31,8 +35,8 @@ for line in diffFile:
 			filecount[dictkey] = int(filecount[dictkey]) + 1
 		
 
-outputfile = open("patch_complexity.csv", 'w')
-outputfile.write("PID, BID, FILECOUNT, LINECOUNT\n")
+outputfile = open("Defects4JPatchComplexity.csv", 'w')
+outputfile.write("Project, DefectId, FileCount, LineCount\n")
 count = 1
 for dictkey in sorted(patchdetails):	
 	outputline = dictkey[0] + ", " + dictkey[1] + ", " + str(filecount[dictkey]) + ", " + str(linecount[dictkey]) + "\n"

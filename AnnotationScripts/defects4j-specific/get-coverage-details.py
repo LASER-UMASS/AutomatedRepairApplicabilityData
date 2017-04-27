@@ -1,27 +1,38 @@
 # script to get coverage of test suite for Defects4J defects
-# script requires Defects4J installed on system and PATH variable includes "defects4j/framework/bin"
-# run the script using command: python get-coverage-details.py
+
+# script requires Defects4J installed on system and enviorinment variable PATH should include "<path-to-defects4j>/framework/bin"
+# script requires <path-to-defects4j> as command line argument
+
 # output of the script is Defects4JCoverage.csv that lists 
-# Project, BugID, Lines total, Lines covered, Conditions total, Conditions covered, Line Coverage, Condition coverage
+# Project, DefectId, LinesTotal, LinesCovered, ConditionsTotal, ConditionsCovered, StatementCoverage, ConditionCoverage
 # for all the defects of Defects4J
+
+# run the script using command: python get-coverage-details.py <path-to-defects4j>
 
 import os
 import commands
+import sys
 
-defects4jpath = "~/defects4j"	# set patch to defects4j installation folder
+if len(sys.argv) < 2:
+        print "ERROR: Please provide path to Defects4J directory"
+        sys.exit()
+
+defects4jpath = str(sys.argv[1])                           # path to Defects4J 
 os.chdir(defects4jpath)  
 outputfile = open("Defects4JCoverage.csv", 'w')			
-outputfile.write("Project, BugID, Lines total, Lines covered, Conditions total, Conditions covered, Line Coverage, Condition coverage\n")
+outputfile.write("Project, DefectId, LinesTotal, LinesCovered, ConditionsTotal, ConditionsCovered, StatementCoverage, ConditionCoverage\n")
 
 #1 Chart
 proj = "Chart"
 for i in range(1,27):
     command = "defects4j checkout -p "+proj+" -v "+str(i)+"b -w /tmp/chart_"+str(i)
+    print command
     checkoutput = commands.getoutput(command)
     if checkoutput:
         os.chdir("/tmp/chart_"+str(i))
         covoutput = commands.getoutput("defects4j coverage")
-        lines = covoutput.split('\n')
+        print covoutput
+	lines = covoutput.split('\n')
         found=0
         for l in lines:
             if l.find("Lines total:")!=-1 :

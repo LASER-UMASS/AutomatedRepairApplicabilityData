@@ -1,15 +1,22 @@
 # script to compute test case details for all defects of Defects4J
-# script requires to have Defects4J installed
-# run the script by using command: python get-testcase-details.py
+
+# script requires to have Defects4J installed and path to Defects4J installation
 # output of this script is Defects4JTests.csv file that lists 
-# Project, BugID, #Relevant tests, #Triggering tests, #Dependent classes 
-# on this defect for all the Defects4J scenarios. 
+# Project, DefectId, RelevantTestCount, TriggeringTestCount, DependentClasses 
+# for all the Defects4J scenarios. 
+
+# run the script by using command: python get-testcase-details.py <path-to-defects4j>
 
 import os
+import sys
 
-defects4jpath = "~/defects4j/"	# path to defects4j  
+if len(sys.argv) < 2:
+        print "ERROR: Please provide path to Defects4J directory"
+        sys.exit()
+
+defects4jpath = str(sys.argv[1])                           # path to Defects4J 
 count=0
-outputfile = open("Defects4JTests.csv", 'w')
+outputfile = open("Defects4JTestCounts.csv", 'w')
 outputfile.write("Project, BugID, Relevant, Triggering, Dependent\n")
 
 #1 Chart
