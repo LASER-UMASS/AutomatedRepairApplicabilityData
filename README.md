@@ -109,16 +109,16 @@ The defects are annotated with the following abstract parameters, when the relev
     - Possible values: 0,1 
     - Description: this contains values 1 and 0 corresponding to whether a defect is linked to any bug tracking system (through
       URL) or not respectively.  
-4. DefectType (bug vs feature-request)	
+4. BugOrFeature
     - Data-type:string
     - Possible values: bug, feature-request 
     - Description: if the defect is a bug report or a feature request. This is determined based on our defined methodology of 
       classifying defects into bugs and feature-requests. 
-5. DefectType (defect vs regression)	
-    - Data-type:string
-    - Possible values: defect, regression
+5. IsRegression	
+    - Data-type:integer
+    - Possible values: 0,1 
     - Description: if the chronological order of commits corresponding to buggy and fixed versions of the defect is reverse, it 
-      is annotated as regression otherwise as defect.
+      is annotated with 1 (defect is regression) otherwise it is annotated with value 0 (defect is not regression).
 6. \<APR technique\>
    - Data-type:integer
    - Possible values: 0,1, NT (\<APR technique\> was not tested on that defect)
