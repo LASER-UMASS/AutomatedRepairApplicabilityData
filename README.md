@@ -80,16 +80,16 @@ The defects are annotated with the following abstract parameters, when the relev
       the type of code modifications. This information comes from both benchmarks, but the characteristics
       are adopted from the ManyBugs benchmark. The possible code modification types are:
      
-       - Human patch changes data structures or types?	
-       - Human patch changes method signature?	
-       - Human patch changes arguments to a function?	
-       - Human patch added 1 or more function calls?	
-       - Human patch changes conditional?	
-       - Human patch adds new variables?	
-       - Human patch adds 1 or more if-statements?	
-       - Human patch adds 1 or more loops?	
-       - Human patch adds a whole new function?
-
+       - *ChangesType*: Human patch changes data structures or types?	
+       - *ChangesMethodSignature*: Human patch changes method signature?	
+       - *ChangesMethodCallArgs*: Human patch changes arguments to a function?	
+       - *AddsMethodCall*: Human patch added 1 or more function calls?	
+       - *ChangesCondition*: Human patch changes conditional?	
+       - *AddsVariable*: Human patch adds new variables?	
+       - *AddsIfStmt*: Human patch adds 1 or more if-statements?	
+       - *AddsLoop*: Human patch adds 1 or more loops?	
+       - *AddsMethod*: Human patch adds a whole new function?
+       
 ## Additional annotations
 
 1. DefectId
