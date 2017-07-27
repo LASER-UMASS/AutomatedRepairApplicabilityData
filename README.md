@@ -77,8 +77,8 @@ The defects are annotated with the following abstract parameters, when the relev
     - Data-type:binary
     - Possible values: 0,1 
     - Description: characteristics of the developer-written patch in terms of
-      the type of code modifications. This information comes from the
-      ManyBugs benchmark. The possible code modification types are:
+      the type of code modifications. This information comes from both benchmarks, but the characteristics
+      are adopted from the ManyBugs benchmark. The possible code modification types are:
      
        - Human patch changes data structures or types?	
        - Human patch changes method signature?	
