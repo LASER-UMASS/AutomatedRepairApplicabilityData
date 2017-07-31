@@ -4,7 +4,8 @@
 # INPUT: path to defects4j installation directory, project, start defect ID and end defect ID are specified as command-line arguments
 # OUTPUT: output of this script is Defects4JTests.csv file that lists Project, DefectId, RelevantTestCount and TriggeringTestCount. 
 # HOW TO RUN: run the script by using command: bash getTestcaseDetails.sh <project> <start defectID> <end defect ID> (e.g. bash getTestcaseDetails.sh Chart 1 26)
-# REQUIREMENTS AND DEPENDENCIES: script requires Defects4J installed on system and environment variable PATH must include <path-to-defects4j>/framework/bin"
+# REQUIREMENTS AND DEPENDENCIES: script requires Defects4J installed on system and environment variable PATH must include <path-to-defects4j>/framework/bin, 
+# TestFinder.java and TestMethod.java files located in the same directory as this script"
 
 if [ "$#" -ne 3 ]; then
     echo "Illegal number of arguments. Usage: bash getTestcaseDetails.sh <project> <start defectID> <end defect ID>"
