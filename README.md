@@ -1,8 +1,8 @@
 # Automated repair applicability data 
 
 This project contains data and scripts that extend the
-[ManyBugs](http://repairbenchmarks.cs.umass.edu/) and
-[Defects4J](https://github.com/rjust/defects4j) benchmarks to enable the
+[ManyBugs](http://repairbenchmarks.cs.umass.edu/) version beta-2.1 and
+[Defects4J](https://github.com/rjust/defects4j) version 1.1.0 benchmarks to enable the
 evaluation of automated program repair's applicability to defects, For
 example, these data enable evaluating if automated repair techniques are able
 to produce patches for defects considered hard or important by developers. 
@@ -24,6 +24,17 @@ Prophet, and Kali are evaluated on an 105-defect subset of ManyBugs.) The
 Defects4J benchmark contains these data for three Java techniques: GenProg,
 Kali, and Nopol. (These techniques were evaluated on a 224-defect subset of
 Defects4J.)
+
+
+### Primary key parameters 
+Following two parameters are used to uniquely identify each defect.  
+
+1. Project
+    - Data-type:string
+    - Description: the name of the project.
+2. DefectId (or DeprecatedDefectId for ManyBugs)
+    - Data-type:string
+    - Description: For Defects4J, the DefectId lists the bug number for each defect as provided in Defects4J benchmark. For ManyBugs, the DefectId lists the buggycommitHash-fixedcommithash for each defect as provided in ManyBugs benchmark. The dataset provides DefectIds for both 2015 ManyBugs benchmark containing 185 defects and 2012 ManyBugs benchmark contaning 105 defects (strict subset of 185 defects) under columns DefectId and DeprecatedDefectId respectively.
 
 ### The eleven abstract parameters
 
@@ -71,60 +82,49 @@ The defects are annotated with the following abstract parameters, when the relev
    - Description: number of defects (with URLs to a bug tracking system) on which the defect's issue depends.
 9. Reproducibility	
    - Data-type:double
-   - Possible values: >=0 and <=1 NA (information not available)
-   - Description: how easy it is to reproduce the defect by developer (0 indicates defect is nondeterministic, and 1 indicates defect is reproducible).
+   - Possible values: 0, 0.5, 1, and NA (information not available)
+   - Description: how easy it is to reproduce the defect by developer (0 indicates defect is nondeterministic, 0.5 indicates defect is reproducible sometimes but not always, and 1 indicates defect is reproducible).
 11. PatchCharacteristics
     - Data-type:binary
     - Possible values: 0,1 
     - Description: characteristics of the developer-written patch in terms of
-      the type of code modifications. This information comes from both benchmarks, but the characteristics
+      the type of code modifications. This information comes from both benchmarks, but the characteristics (mentioned in quotes)
       are adopted from the ManyBugs benchmark. The possible code modification types are:
      
-       - *ChangesType*: Human patch changes data structures or types?	
-       - *ChangesMethodSignature*: Human patch changes method signature?	
-       - *ChangesMethodCallArgs*: Human patch changes arguments to a function?	
-       - *AddsMethodCall*: Human patch added 1 or more function calls?	
-       - *ChangesCondition*: Human patch changes conditional?	
-       - *AddsVariable*: Human patch adds new variables?	
-       - *AddsIfStmt*: Human patch adds 1 or more if-statements?	
-       - *AddsLoop*: Human patch adds 1 or more loops?	
-       - *AddsMethod*: Human patch adds a whole new function?
+       - *ChangesType*: patch changes one or more data structure or data type. ("Human patch changes data structures or types?")	
+       - *ChangesMethodSignature*: patch changes method signature of one or more methods. ("Human patch changes method signature?")	
+       - *ChangesMethodCallArgs*: patch changes one or more arguments of one or more methods. ("Human patch changes arguments to a function?")	
+       - *AddsMethodCall*: patch adds one or more method calls. ("Human patch added 1 or more function calls?")	
+       - *ChangesCondition*: patch changes one or more conditional statements. ("Human patch changes conditional?")	
+       - *AddsVariable*: patch adds one or more variables. ("Human patch adds new variables?")	
+       - *AddsIfStmt*: patch adds one or more if-statements. ("Human patch adds 1 or more if-statements?")	
+       - *AddsLoop*: patch adds one or more loops. ("Human patch adds 1 or more loops?")	
+       - *AddsMethod*: patch adds one or more methods. ("Human patch adds a whole new function?")
        
 ## Additional annotations
 
-1. DefectId
-    - Data-type:string
-    - Description: The unique defect IDs. For ManyBugs the DefectId is of the format project-buggyHash-fixedhash. 
-      For Defects4J, we have separate columns for Project and DefectId provided by Defects4J authors. For ManyBugs the dataset 
-      provides DefectIds for both 2015 ManyBugs benchmark containing 185 defects and 2012 ManyBugs benchmark contaning 105 
-      defects (strict subset of 185 defects) in seperate columns.
-2. IssueReportLink
+1. IssueReportLink
     - Data-type:string
     - Possible values: url to issue tracker, NA (information not available)
     - Description: the URL to the bug tracking system that describes the bug or feature-request depending upon the defect type. 
       Some defects had multiple URL mappings so we took the one which was reported first. Also, some of the defects map to same 
-      URLs indicating that these correspond to individual commits made while resolving the issue.   
-3. LinkedToBugTracker
-    - Data-type:binary
-    - Possible values: 0,1 
-    - Description: this contains values 1 and 0 corresponding to whether a defect is linked to any bug tracking system (through
-      URL) or not respectively.  
-4. BugOrFeature
+      URLs indicating that these correspond to individual commits made while resolving the issue.    
+2. BugOrFeature
     - Data-type:string
     - Possible values: bug, feature 
     - Description: if the defect is a bug or feature. This is determined based on our defined methodology of 
       classifying defects into bugs and features. 
-5. IsRegression	
+3. IsRegression	
     - Data-type:binary
     - Possible values: 0,1 
     - Description: if the chronological order of commits corresponding to buggy and fixed versions of the defect is reverse, it 
       is annotated with 1 (defect is regression) otherwise it is annotated with value 0 (defect is not regression).
-6. PatchFound:\<APR technique\>
+4. PatchFound:\<APR technique\>
    - Data-type:binary
    - Possible values: 0,1, NT (\<APR technique\> was not tested on that defect)
    - Description: this contains 1 or 0 corresponding to whether \<APR technique\> was able to fix the defect (generate a  
      plausible patch) or not respectively. The repairability results are borrowed from previous evaluations. 
-7. PatchQuality:\<APR technique\>
+5. PatchQuality:\<APR technique\>
    - Data-type:string
    - Possible values: plausible, correct, NT (\<APR technique\> was not tested on that defect).  Empty cells indicate that the \<APR technique\> was not able to generate a patch for that defect.
    - Description: this contains the information about the quality of patches generated by \<APR technique\>. These results are 
