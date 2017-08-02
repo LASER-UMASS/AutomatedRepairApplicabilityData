@@ -59,7 +59,7 @@ The defects are annotated with the following abstract parameters, when the relev
 5. StatementCoverage	
    - Data-type:double
    - Possible values: >=0 and <=100, NA (information not available)
-   - Description: the percent of the lines in the files edited by the developer-written patch that are executed by the test suite
+   - Description: the percent of the lines in the files edited by the developer-written patch that are executed by the test suite. We computed the coverage of Defects4J defects utilizing the `coverage` utility provided in Defects4J framwork available with Defects4J benchmark. For ManyBugs defects, we used the virtual machine image (genprog_icse2012_virtualbox) available with ManyBugs benchmark to download and compile each defect and then used `gcov` utlity to compute the test suite coverage.    
 6. TimeToFix	
    - Data-type:double
    - Possible values: >0, NA (information not available)
