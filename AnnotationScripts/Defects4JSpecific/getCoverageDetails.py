@@ -23,9 +23,7 @@ noofdefects["Math"] = 106
 noofdefects["Time"] = 27
 
 for proj in projects: 
-	print proj
-	#for i in range(1,noofdefects[proj]+1):
-	for i in range(1,2):
+	for i in range(1,noofdefects[proj]+1):
 		command = defects4jpath + "/framework/bin/defects4j checkout -p " + proj + " -v " + str(i) + "b -w /tmp/" + proj.lower() + "_" + str(i) + "_buggy"
 		print command
 		checkoutput = commands.getoutput(command)
