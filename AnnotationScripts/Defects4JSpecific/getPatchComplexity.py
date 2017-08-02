@@ -1,5 +1,5 @@
 # PURPOSE:script to compute patch complexity from minimized patches of all defects of Defects4J.
-# INPUT: this script uses data stored in all_diffs.csv (provided by Defects4J authors) 
+# INPUT: this script uses data stored in all_diffs.csv (generated using script categorize_patches.sh provided by Defects4J authors) 
 # OUTPUT: this script generates a file Defects4JPatchComplexity.csv that lists Project, DefectId, FileCount, LineCount for all the defects
 # HOW TO RUN: run the script by using command: python get-patch-details.py
 
