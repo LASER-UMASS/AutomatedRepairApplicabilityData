@@ -1,7 +1,7 @@
-# PURPOSE: script to compute patch complexity from minimized patches of all defects from ManyBugs.
+# PURPOSE: script to compute patch complexity from minimized patches of all defects from ManyBugs. The script first removes the c-style comments from the buggy and fixed versions of the program and then computes the diff between minimized files. The regular expression to identify the c-style comments is borrowed from https://www.saltycrane.com/blog/2007/11/remove-c-comments-python/
 # INPUT: script requires path to ManyBugs scenarios downloaded from http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
-# OUTPUT: output of this script is ManyBugsPatchComplexity.csv file that lists DefectID.ManyBugs185, FileCount, Insertions, Deletions, Modifications, LineCount for all the scenarios. 
-# HOW TO RUN: run the script by using command: python get-minimized-patch-complexity.py <path to ManyBugs scenarios>
+# OUTPUT: output of this script is ManyBugsPatchComplexity.csv file that lists Project, DefectId, FileCount, and LineCount for all the ManyBugs defects. 
+# HOW TO RUN: run the script by using command: python getPatchComplexity.py <path to ManyBugs scenarios>
 
 import os
 import commands
@@ -76,12 +76,12 @@ def remove_spaces(text):
 	return newtext
 
 
-for scenario in scenarios:
+for scenario in sorted(scenarios):
 	scenario_list = scenario.split(".tar.gz")[0].split('-')
+	project = scenario_list[0]
 	buggyversion = scenario_list[len(scenario_list)-2]
 	fixedversion = scenario_list[len(scenario_list)-1]
-        print buggyversion, fixedversion
-
+	print project, buggyversion, fixedversion
         scenariotar = tarfile.open(repoPath + scenario)
         filect = 0
 	buggy = ""
@@ -133,8 +133,12 @@ for scenario in scenarios:
 	scenariotar.close()
 
 outputfile = open("ManyBugsPatchComplexity.csv", 'w')
-outputfile.write("DefectID.ManyBugs185, FileCount, Insertions, Deletions, Modifications, LineCount\n")
-for defect in sorted(inserted):
-	totallines = int(inserted[defect]) + int(deleted[defect]) + int(modified[defect])
-        outputline = defect + ", " + str(filecount[defect]) + ", " + str(inserted[defect]) + ", " + str(deleted[defect]) + ", " + str(modified[defect]) + ", " + str(totallines) + "\n"
+outputfile.write("Project, DefectId, FileCount, LineCount\n")
+for scenario in sorted(inserted):
+	scenario_list = scenario.split(".tar.gz")[0].split('-')
+        project = scenario_list[0]
+        buggyversion = scenario_list[len(scenario_list)-2]
+        fixedversion = scenario_list[len(scenario_list)-1]
+	totallines = int(inserted[scenario]) + int(deleted[scenario]) + int(modified[scenario])
+        outputline = project + "," + buggyversion + "-" + fixedversion + "," + str(filecount[scenario]) + "," + str(totallines) + "\n"
         outputfile.write(outputline)
