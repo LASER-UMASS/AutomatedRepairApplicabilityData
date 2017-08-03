@@ -1,6 +1,6 @@
-# PURPOSE: script to compute test case details for all defects of ManyBugs. 
+# PURPOSE: script to compute test case details for all defects of ManyBugs. The number of relevant tests is computed by counting the total number of positive and negative tests encoded in test.sh script available inside each defect and the number of triggering tests is equal to the number of negative tests in that script. 
 # INPUT: script requires ManyBugs scenarios available at http://repairbenchmarks.cs.umass.edu/ManyBugs/scenarios/
-# OUTPUT: output of this script is ManyBugsRelevantTests.csv file that lists DefectID.ManyBugs185, PositiveTestCount, NegativeTestCount, RelevantTestCount, TriggeringTestCount for all the ManyBugs scenarios. 
+# OUTPUT: output of this script is ManyBugsTestCounts.csv file that lists Project, DefectId, RelevantTestCount and TriggeringTestCount for all the ManyBugs defects. 
 # HOW TO RUN: run the script by using command: python get-testcase-details.py <path to ManyBugs scenarios>
 
 import os
@@ -19,8 +19,14 @@ postestpattern = re.compile('p[0-9]+\) ')
 negtestpattern = re.compile('n[0-9]+\) ')
 relevanttests = {}
 
-for scenario in scenarios:
-        scenariotar = tarfile.open(repoPath + scenario)
+# read the tar file for each scenario, fetch the test.sh script and identify and store the number of positive and negative tests utilizing the above regular expressions 
+for scenario in sorted(scenarios):
+        scenario_list = scenario.split(".tar.gz")[0].split('-')
+	project = scenario_list[0]
+        buggyversion = scenario_list[len(scenario_list)-2]
+        fixedversion = scenario_list[len(scenario_list)-1]
+	print project, buggyversion, fixedversion
+	scenariotar = tarfile.open(repoPath + scenario)
         postestcount = 0
         negtestcount = 0
 	totalreltests = 0
@@ -36,9 +42,16 @@ for scenario in scenarios:
 					negtestcount += 1					
   	relevanttests[scenario] = (postestcount, negtestcount, postestcount + negtestcount)
 
+# write the data extracted to the output file
 outputfile = open("ManyBugsTestCounts.csv", 'w')
-outputfile.write("DefectID.ManyBugs185, PositiveTestCount, NegativeTestCount, RelevantTestCount, TriggeringTestCount\n")
-for defect in sorted(relevanttests):
-        outputline = defect + ", " + str(relevanttests[defect][0]) + ", " + str(relevanttests[defect][1]) + ", " + str(relevanttests[defect][2]) + ", " + str(relevanttests[defect][1]) + "\n"
-        outputfile.write(outputline)
+outputfile.write("Project,DefectId,RelevantTestCount,TriggeringTestCount\n")
+for scenario in sorted(relevanttests):
+        scenario_list = scenario.split(".tar.gz")[0].split('-')
+	project = scenario_list[0]
+        buggyversion = scenario_list[len(scenario_list)-2]
+        fixedversion = scenario_list[len(scenario_list)-1]
+        outputline = project + "," + buggyversion + "-" + fixedversion + "," + str(relevanttests[scenario][2]) + ", " + str(relevanttests[scenario][1]) + "\n"
+        print outputline
+	outputfile.write(outputline)
 
+outputfile.close()
