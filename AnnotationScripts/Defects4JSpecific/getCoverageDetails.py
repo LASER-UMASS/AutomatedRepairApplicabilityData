@@ -13,8 +13,8 @@ if len(sys.argv) < 2:
 	sys.exit()
 
 defects4jpath = str(sys.argv[1])                           # path to Defects4J 
-outputfile = open("Defects4JCoverage1.csv", 'w')			
-outputfile.write("Project, DefectId, StatementCoverage\n")
+outputfile = open("Defects4JCoverage.csv", 'w')			
+outputfile.write("Project,DefectId,StatementCoverage\n")
 projects = ["Chart", "Lang", "Math", "Time"] 
 noofdefects = {}
 noofdefects["Chart"] = 26
@@ -29,7 +29,9 @@ for proj in projects:
 		checkoutput = commands.getoutput(command)
 		if checkoutput:
 			os.chdir("/tmp/" + proj.lower() + "_" + str(i) + "_buggy")
-			covoutput = commands.getoutput("defects4j coverage")
+			command = defects4jpath + "/framework/bin/defects4j coverage"
+			print command
+			covoutput = commands.getoutput(command)
 	 		print covoutput
 	 		lines = covoutput.split('\n')
 	 		found=0
@@ -38,7 +40,8 @@ for proj in projects:
 	 				found=1
 	 				stmtcoverage = l[l.find(":")+2:len(l)]
 	 		if found==1:
-				outline = proj + ", " + str(i) + ", " + str(stmtcoverage)
+				outline = proj + "," + str(i) + "," + str(stmtcoverage)
   				outputfile.write(outline)
   				outputfile.write('\n')
-
+			
+outputfile.close()
