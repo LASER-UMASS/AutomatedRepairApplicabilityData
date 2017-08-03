@@ -48,10 +48,8 @@ outputfile.write("Project,DefectId,RelevantTestCount,TriggeringTestCount\n")
 for scenario in sorted(relevanttests):
         scenario_list = scenario.split(".tar.gz")[0].split('-')
 	project = scenario_list[0]
-        buggyversion = scenario_list[len(scenario_list)-2]
-        fixedversion = scenario_list[len(scenario_list)-1]
-        outputline = project + "," + buggyversion + "-" + fixedversion + "," + str(relevanttests[scenario][2]) + ", " + str(relevanttests[scenario][1]) + "\n"
-        print outputline
+        defectid = scenario.split("-bug-")[1].split('.tar.gz')[0]
+        outputline = project + "," + defectid + "," + str(relevanttests[scenario][2]) + "," + str(relevanttests[scenario][1]) + "\n"
 	outputfile.write(outputline)
 
 outputfile.close()
