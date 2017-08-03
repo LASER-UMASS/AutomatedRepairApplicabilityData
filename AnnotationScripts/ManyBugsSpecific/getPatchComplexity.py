@@ -135,7 +135,7 @@ for scenario in sorted(scenarios):
 
 # write the results to output csv file
 outputfile = open("ManyBugsPatchComplexity.csv", 'w')
-outputfile.write("Project, DefectId, FileCount, LineCount\n")
+outputfile.write("Project,DefectId,FileCount,LineCount\n")
 for scenario in sorted(inserted):
 	scenario_list = scenario.split(".tar.gz")[0].split('-')
         project = scenario_list[0]
