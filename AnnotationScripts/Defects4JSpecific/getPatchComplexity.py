@@ -3,10 +3,21 @@
 # OUTPUT: this script generates a file Defects4JPatchComplexity.csv that lists Project, DefectId, FileCount, and LineCount for all the defects
 # HOW TO RUN: run the script by using command: python get-patch-details.py
 
+import operator
 diffFile = open("all_diffs.csv", 'r')
 patchdetails = {}
 linecount = {}
 filecount = {}
+outputfile = open("Defects4JPatchComplexity.csv", 'w')
+outputfile.write("Project,DefectId,FileCount,LineCount\n")
+
+
+def writeToFile(project, totaldefects):
+	for i in range(1, totaldefects+1):
+		dictkey = (project,str(i))
+		outputline = project + "," + str(i) + "," + str(filecount[dictkey]) + "," + str(linecount[dictkey]) + "\n"
+		outputfile.write(outputline)
+
 
 for line in diffFile:
 	if not "PID" in line:
@@ -28,13 +39,10 @@ for line in diffFile:
 			patchdetails[dictkey] = newpatch
 			linecount[dictkey] = int(linecount[dictkey]) + int(INS) + int(DEL) + int(MOD)
 			filecount[dictkey] = int(filecount[dictkey]) + 1
-		
 
-outputfile = open("Defects4JPatchComplexity.csv", 'w')
-outputfile.write("Project,DefectId,FileCount,LineCount\n")
-count = 1
-for dictkey in sorted(patchdetails):	
-	outputline = dictkey[0] + "," + dictkey[1] + "," + str(filecount[dictkey]) + "," + str(linecount[dictkey]) + "\n"
-	outputfile.write(outputline)
-	count += 1
+writeToFile("Chart", 26)
+writeToFile("Math", 106)
+writeToFile("Lang", 65)
+writeToFile("Time", 27)
+
 outputfile.close()
